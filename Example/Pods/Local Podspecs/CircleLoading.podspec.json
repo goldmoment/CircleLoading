@@ -1,0 +1,22 @@
+{
+  "name": "CircleLoading",
+  "version": "0.1.0",
+  "summary": "A short description of CircleLoading.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/goldmoment/CircleLoading",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "goldmoment": "nguyenvanvienqn@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/goldmoment/CircleLoading.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "CircleLoading/Classes/**/*"
+}

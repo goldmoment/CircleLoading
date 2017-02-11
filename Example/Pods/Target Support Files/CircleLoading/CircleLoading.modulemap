@@ -1,0 +1,6 @@
+framework module CircleLoading {
+  umbrella header "CircleLoading-umbrella.h"
+
+  export *
+  module * { export * }
+}

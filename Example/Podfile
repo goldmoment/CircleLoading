@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CircleLoading_Example' do
+  pod 'CircleLoading', :path => '../'
+
+  target 'CircleLoading_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

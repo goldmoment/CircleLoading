@@ -1,0 +1,6 @@
+framework module Pods_CircleLoading_Example {
+  umbrella header "Pods-CircleLoading_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

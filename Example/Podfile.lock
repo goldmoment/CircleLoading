@@ -1,0 +1,16 @@
+PODS:
+  - CircleLoading (0.1.0)
+
+DEPENDENCIES:
+  - CircleLoading (from `../`)
+
+EXTERNAL SOURCES:
+  CircleLoading:
+    :path: ../
+
+SPEC CHECKSUMS:
+  CircleLoading: 5b1cb9be2f6e5a9cf55cd684dc46cc34dc047d09
+
+PODFILE CHECKSUM: 0a29bc7ebedeb31f78a058afb2c7d45b259ad128
+
+COCOAPODS: 1.1.1
