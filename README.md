@@ -6,9 +6,9 @@
 [![Platform](https://img.shields.io/cocoapods/p/CircleLoading.svg?style=flat)](http://cocoapods.org/pods/CircleLoading)
 
 ## Example
-![alt tag](https://github.com/goldmoment/CircleLoading/blob/master/loading1.gif)  [![IMAGE ALT TEXT HERE]
-![alt tag](https://github.com/goldmoment/CircleLoading/blob/master/loading2.gif)  [![IMAGE ALT TEXT HERE]
-![alt tag](https://github.com/goldmoment/CircleLoading/blob/master/loading3.png)  [![IMAGE ALT TEXT HERE]
+![alt tag](https://github.com/goldmoment/CircleLoading/blob/master/loading1.gif)
+![alt tag](https://github.com/goldmoment/CircleLoading/blob/master/loading2.gif)
+![alt tag](https://github.com/goldmoment/CircleLoading/blob/master/loading3.png)
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
