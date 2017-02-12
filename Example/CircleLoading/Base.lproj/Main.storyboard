@@ -36,6 +36,9 @@
                             <constraint firstItem="Upf-Zm-8oy" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="xgM-Te-JmO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="circleLoading" destination="Upf-Zm-8oy" id="GGr-s7-mr7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

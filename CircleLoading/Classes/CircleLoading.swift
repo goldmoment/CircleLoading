@@ -8,7 +8,22 @@
 
 import UIKit
 
-class CircleLoading: UIView {
+public class CircleLoading: UIView {
+    private var color1 = UIColor(red:0.98, green:0.43, blue:0.06, alpha:1.0)
+    private var color2 = UIColor(red:0.97, green:0.67, blue:0.13, alpha:1.0)
+    private var color3 = UIColor(red:0.85, green:0.11, blue:0.00, alpha:1.0)
+    
+    private var c1, c2, c3, c4, c5, c6, c7, c8, c9: CAShapeLayer!
+    private var state: State = .none
+    public var duration: Double = 2.0
+    
+    private enum State {
+        case start
+        case stop
+        case pause
+        case resume
+        case none
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,42 +35,104 @@ class CircleLoading: UIView {
         settup()
     }
     
+    public func colors(color1: UIColor, color2: UIColor, color3: UIColor) {
+        self.color1 = color1
+        self.color2 = color2
+        self.color3 = color3
+        
+        [c1, c2, c3, c4, c5, c6, c7, c8, c9].forEach { (c) in
+            c?.removeFromSuperlayer()
+        }
+        
+        settup()
+    }
+    
+    public func start() {
+        if state == .none || state == .stop {
+            [c1, c2, c5, c7, c8, c9].forEach { (c) in
+                c?.isHidden = false
+                c?.add(rotateAnimation(duration: random(min: duration * 0.4, max: duration * 0.5)), forKey: "transform.rotation")
+                c?.add(scaleAnimation(duration: 2), forKey: "transform.scale123")
+            }
+            
+            [c3, c4, c6].forEach { (c) in
+                c?.isHidden = false
+                c?.add(rotateAnimation(duration: random(min: duration * 0.6, max: duration), direction: -1.0), forKey: "transform.rotation")
+                c?.add(scaleAnimation(duration: 2), forKey: "transform.scale123")
+            }
+            
+            state = .start
+        }
+    }
+    
+    public func stop() {
+        if state != .none && state != .stop {
+            [c1, c2, c3, c4, c5, c6, c7, c8, c9].forEach { (c) in
+                c?.removeAllAnimations()
+                c?.isHidden = true
+            }
+            
+            state = .stop
+        }
+    }
+    
+    public func pause() {
+        if state == .start {
+            let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
+            layer.speed = 0.0
+            layer.timeOffset = pausedTime
+            
+            state = .pause
+        }
+    }
+    
+    public func resume(){
+        if state == .pause {
+            let pausedTime = layer.timeOffset
+            layer.speed = 1.0
+            layer.timeOffset = 0.0
+            layer.beginTime = 0.0
+            
+            let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+            layer.beginTime = timeSincePause
+            
+            state = .resume
+        }
+    }
+
+    
     private func settup() {
         self.layoutIfNeeded()
         self.backgroundColor = UIColor.clear
         
         let baseWidth: CGFloat = 6.0 * self.bounds.width / 60
-        let color1 = UIColor(red:0.98, green:0.43, blue:0.06, alpha:1.0)
-        let color2 = UIColor(red:0.97, green:0.67, blue:0.13, alpha:1.0)
-        let color3 = UIColor(red:0.85, green:0.11, blue:0.00, alpha:1.0)
-        
+
         let r1 = self.bounds.size.width / 2
-        let c1 = createCircle(radius: r1, lineWidth: baseWidth, startAngle: CGFloat(M_PI * 0.8), endAngle: CGFloat(M_PI * 1.2), color: color1.withAlphaComponent(0.5))
+        c1 = createCircle(radius: r1, lineWidth: baseWidth, startAngle: CGFloat(M_PI * 0.8), endAngle: CGFloat(M_PI * 1.2), color: color1.withAlphaComponent(0.5))
         
         let r2 = self.bounds.size.width / 2 - baseWidth * 0.5
-        let c2 = createCircle(radius: r2, lineWidth: baseWidth * 0.5, startAngle: CGFloat(M_PI * 0.4), endAngle: CGFloat(M_PI * 1.3), color: color2.withAlphaComponent(0.5))
+        c2 = createCircle(radius: r2, lineWidth: baseWidth * 0.5, startAngle: CGFloat(M_PI * 0.4), endAngle: CGFloat(M_PI * 1.3), color: color2.withAlphaComponent(0.5))
         
         let r3 = self.bounds.size.width / 2 - baseWidth - 1
-        let c3 = createCircle(radius: r3, lineWidth: baseWidth, startAngle: CGFloat(M_PI * 0.35), endAngle: CGFloat(M_PI * 1.1), color: color1.withAlphaComponent(0.6))
+        c3 = createCircle(radius: r3, lineWidth: baseWidth, startAngle: CGFloat(M_PI * 0.35), endAngle: CGFloat(M_PI * 1.1), color: color1.withAlphaComponent(0.6))
         
         let r4 = self.bounds.size.width / 2 - baseWidth * 1.25
-        let c4 = createCircle(radius: r4, lineWidth: baseWidth * 0.5, startAngle: CGFloat(M_PI * 0.2), endAngle: CGFloat(M_PI * 0.9), color: color1.withAlphaComponent(0.6))
+        c4 = createCircle(radius: r4, lineWidth: baseWidth * 0.5, startAngle: CGFloat(M_PI * 0.2), endAngle: CGFloat(M_PI * 0.9), color: color1.withAlphaComponent(0.6))
         
         let r5 = self.bounds.size.width / 2 - baseWidth * 0.3
-        let c5 = createCircle(radius: r5, lineWidth: baseWidth, startAngle: CGFloat(M_PI * 0.25), endAngle: CGFloat(M_PI * 0.7), color: color1.withAlphaComponent(0.4))
+        c5 = createCircle(radius: r5, lineWidth: baseWidth, startAngle: CGFloat(M_PI * 0.25), endAngle: CGFloat(M_PI * 0.7), color: color1.withAlphaComponent(0.4))
         
         let r6 = self.bounds.size.width / 2 - baseWidth - 1
-        let c6 = createCircle(radius: r6, lineWidth: baseWidth * 0.5, startAngle: CGFloat(-M_PI * 0.2), endAngle: CGFloat(M_PI * 0.45), color: color3.withAlphaComponent(0.8))
+        c6 = createCircle(radius: r6, lineWidth: baseWidth * 0.5, startAngle: CGFloat(-M_PI * 0.2), endAngle: CGFloat(M_PI * 0.45), color: color3.withAlphaComponent(0.8))
         
         let r7 = self.bounds.size.width / 2 - baseWidth * 0.6
-        let c7 = createCircle(radius: r7, lineWidth: baseWidth * 0.8, startAngle: CGFloat(-M_PI * 0.1), endAngle: CGFloat(M_PI * 0.2), color: color3.withAlphaComponent(0.8))
+        c7 = createCircle(radius: r7, lineWidth: baseWidth * 0.8, startAngle: CGFloat(-M_PI * 0.1), endAngle: CGFloat(M_PI * 0.2), color: color3.withAlphaComponent(0.8))
         
         let r8 = self.bounds.size.width / 2 - baseWidth * 0.2
-        let c8 = createCircle(radius: r8, lineWidth: baseWidth * 0.8, startAngle: CGFloat(-M_PI * 0.6), endAngle: CGFloat(0), color: color1.withAlphaComponent(0.8))
+        c8 = createCircle(radius: r8, lineWidth: baseWidth * 0.8, startAngle: CGFloat(-M_PI * 0.6), endAngle: CGFloat(0), color: color1.withAlphaComponent(0.8))
         
         let r9 = self.bounds.size.width / 2 - baseWidth * 0.5
-        let c9 = createCircle(radius: r9, lineWidth: 1, startAngle: CGFloat(-M_PI * 0.4), endAngle: CGFloat(-M_PI * 0.2), color: UIColor.white)
-        
+        c9 = createCircle(radius: r9, lineWidth: 1, startAngle: CGFloat(-M_PI * 0.4), endAngle: CGFloat(-M_PI * 0.2), color: UIColor.white)
         
         self.layer.addSublayer(c2)
         self.layer.addSublayer(c1)
@@ -66,16 +143,6 @@ class CircleLoading: UIView {
         self.layer.addSublayer(c5)
         self.layer.addSublayer(c8)
         self.layer.addSublayer(c9)
-        
-        [c1, c2, c5, c7, c8, c9].forEach { (c) in
-            c.add(rotateAnimation(duration: random(min: 0.8, max: 1.0)), forKey: "transform.rotation")
-            c.add(scaleAnimation(duration: 2), forKey: "transform.scale")
-        }
-        
-        [c3, c4, c6].forEach { (c) in
-            c.add(rotateAnimation(duration: random(min: 1.2, max: 2.0), direction: -1.0), forKey: "transform.rotation")
-            c.add(scaleAnimation(duration: 2), forKey: "transform.scale")
-        }
     }
     
     private func createCircle(radius: CGFloat, lineWidth: CGFloat, startAngle: CGFloat, endAngle: CGFloat, color: UIColor) -> CAShapeLayer {
