@@ -27,6 +27,13 @@ pod "CircleLoading"
 
 ## Usage
 
+Default
+
+```swift
+circleLoading.start()
+```
+Custom
+
 ```swift
 // Set colors
 circleLoading.colors(color1: UIColor.red, color2: UIColor.red, color3: UIColor.red)
