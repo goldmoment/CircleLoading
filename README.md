@@ -14,6 +14,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+Xcode 8, Swift 3
+
 ## Installation
 
 CircleLoading is available through [CocoaPods](http://cocoapods.org). To install
@@ -21,6 +23,28 @@ it, simply add the following line to your Podfile:
 
 ```ruby
 pod "CircleLoading"
+```
+
+## Usage
+
+```swift
+// Set colors
+circleLoading.colors(color1: UIColor.red, color2: UIColor.red, color3: UIColor.red)
+
+// Set duration
+circleLoading.duration = 5.0
+
+// Start animation
+circleLoading.start()
+
+// Pause animation
+circleLoading.pause()
+
+// Resume animation
+circleLoading.resume()
+
+// Stop animation and hide layers
+circleLoading.stop()
 ```
 
 ## Author
